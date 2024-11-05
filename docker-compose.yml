@@ -1,0 +1,24 @@
+services:
+  db:
+    container_name: postgresql-db
+    image: postgres:16
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - psql_db_volume:/var/lib/postgresql/data
+  
+  admin:
+    container_name: postgresql-admin
+    image: dpage/pgadmin4:latest
+    ports:
+      - "8190:80"
+    volumes:
+      - ./pgadmin:/pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=iadmin
+
+volumes:
+  psql_db_volume:
